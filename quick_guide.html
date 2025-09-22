@@ -16,7 +16,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0066cc 0%, #ff6600 100%);
             min-height: 100vh;
         }
 
@@ -27,22 +27,22 @@
             z-index: 1000;
             color: white;
             font-size: 2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #0066cc, #004499);
             width: 60px;
             height: 60px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
             transition: all 0.3s ease;
             text-decoration: none;
         }
 
         .github-corner:hover {
-            background: linear-gradient(135deg, #764ba2, #667eea);
+            background: linear-gradient(135deg, #004499, #0066cc);
             transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
         }
 
         .container {
@@ -65,7 +65,7 @@
         .header h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #0066cc, #ff6600);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -105,9 +105,7 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 3px solid transparent;
-            border-bottom: 3px solid;
-            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+            border-bottom: 3px solid #0066cc;
             position: relative;
         }
 
@@ -118,7 +116,7 @@
             left: 0;
             width: 50px;
             height: 3px;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background: linear-gradient(135deg, #ff6600, #cc5200);
             border-radius: 2px;
         }
 
@@ -138,7 +136,7 @@
             font-size: 0.85rem;
             overflow-x: auto;
             margin: 1rem 0;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #0066cc;
             box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
             transition: transform 0.2s ease;
         }
@@ -177,7 +175,7 @@
         }
 
         th {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #0066cc, #004499);
             color: white;
             font-weight: 600;
             font-size: 0.85rem;
@@ -359,22 +357,22 @@
             z-index: 1000;
             color: white;
             font-size: 2rem;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background: linear-gradient(135deg, #ff6600, #cc5200);
             width: 60px;
             height: 60px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
             transition: all 0.3s ease;
             text-decoration: none;
         }
 
         .back-home:hover {
-            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            background: linear-gradient(135deg, #cc5200, #ff6600);
             transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -396,7 +394,7 @@
     </a>
 
     <!-- GitHub Corner -->
-    <a href="https://github.com/kyleighhill-wcsd/FTC_Robotics" class="github-corner" aria-label="View source on GitHub">
+    <a href="https://github.com/yourusername/ftc-programming-resources" class="github-corner" aria-label="View source on GitHub">
         <i class="fab fa-github"></i>
     </a>
 
@@ -527,7 +525,53 @@ if (max > 1.0) {
             </div>
 
             <div class="section">
-                <h2>Control Patterns</h2>
+                <h2>INTO THE DEEP Specific Examples</h2>
+                <h3>Specimen Handling</h3>
+                <div class="code-block">// Specimen intake and scoring
+if (gamepad1.right_bumper) {
+    // Grab specimen
+    intakeServo.setPosition(0.2);  // Close
+    sleep(500);
+    armMotor.setPower(0.6);  // Lift to scoring height
+} else if (gamepad1.left_bumper) {
+    // Release specimen
+    intakeServo.setPosition(0.8);  // Open
+    sleep(300);
+    armMotor.setPower(-0.4);  // Lower arm
+}</div>
+
+                <h3>Sample Detection with Color Sensor</h3>
+                <div class="code-block">// Detect alliance-specific samples
+ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "color");
+
+// In loop():
+int red = colorSensor.red();
+int blue = colorSensor.blue();
+
+if (red > blue + 50) {
+    telemetry.addData("Sample", "RED Alliance");
+    // Auto-intake red samples
+} else if (blue > red + 50) {
+    telemetry.addData("Sample", "BLUE Alliance");
+    // Auto-intake blue samples
+}</div>
+
+                <h3>Submersible Navigation</h3>
+                <div class="code-block">// Navigate around submersible using distance sensor
+DistanceSensor distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
+
+double distance = distanceSensor.getDistance(DistanceUnit.INCH);
+
+if (distance < 12.0) {
+    // Too close to submersible - turn away
+    leftMotor.setPower(-0.5);
+    rightMotor.setPower(0.5);
+} else {
+    // Safe to drive forward
+    leftMotor.setPower(0.7);
+    rightMotor.setPower(0.7);
+}</div>
+            </div>
                 <h3>Button Toggle</h3>
                 <div class="code-block">// In class: private boolean clawOpen = false;
 // In loop():
@@ -546,25 +590,37 @@ lastA = gamepad1.a;</div>
     armMotor.setPower(0);      // Stop arm
 }</div>
 
-                <h3>Variable Speed Control</h3>
-                <div class="code-block">double speed = gamepad1.right_trigger * 0.8 + 0.2; // 20% to 100%
-motor.setPower(gamepad1.left_stick_y * speed);</div>
-            </div>
+            <div class="section">
+                <h2>Control Patterns</h2>
 
             <div class="section">
                 <h2>Autonomous Basics</h2>
-                <h3>Linear OpMode Structure</h3>
-                <div class="code-block">@Autonomous(name = "Auto Program", group = "Auto")
-public class AutoProgram extends LinearOpMode {
+                <h3>INTO THE DEEP Autonomous</h3>
+                <div class="code-block">@Autonomous(name = "Sample Auto", group = "INTO THE DEEP")
+public class SampleAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Initialize hardware
-        DcMotor motor = hardwareMap.get(DcMotor.class, "motor");
+        DcMotor leftMotor = hardwareMap.get(DcMotor.class, "left_drive");
+        DcMotor rightMotor = hardwareMap.get(DcMotor.class, "right_drive");
         
-        waitForStart();  // Wait for start button
+        waitForStart();
         
-        // Autonomous actions
-        motor.setPower(0.5);
+        // Drive to submersible
+        leftMotor.setPower(0.5);
+        rightMotor.setPower(0.5);
+        sleep(2000);  // Drive forward 2 seconds
+        
+        // Stop at submersible
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        sleep(500);
+        
+        // Score specimen (if mechanism allows)
+        // armMotor.setPower(0.6);
+        // sleep(1000);
+    }
+}</div>.setPower(0.5);
         sleep(2000);         // Wait 2 seconds
         motor.setPower(0);
     }
