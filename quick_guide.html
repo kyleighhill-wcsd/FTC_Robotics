@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>FTC Programming Quick Reference Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .github-corner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            color: white;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .github-corner:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #2c3e50;
+            text-align: center;
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid transparent;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.8rem 0;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .code-block:hover {
+            transform: translateY(-2px);
+        }
+
+        .inline-code {
+            background: linear-gradient(135deg, #ecf0f1, #d5dbdb);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 12px;
+        }
+
+        tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 12px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            transition: background 0.3s ease;
+        }
+
+        td .inline-code {
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            border: 1px solid #ffcccb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.1);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0fff4, #e8f5e8);
+            border: 1px solid #90ee90;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.1);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffbf0, #fff3cd);
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #f39c12;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.1);
+        }
+
+        .tip-box h3, .warning-box h3, .highlight-box h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                max-width: none;
+                padding: 1rem;
+            }
+            .section {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+            .content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .github-corner {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 2rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .github-corner {
+                font-size: 1.8rem;
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+                border-radius: 12px;
+            }
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            color: white;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .back-home {
+                font-size: 1.8rem;
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                left: 15px;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home -->
+    <a href="index.html" class="back-home" aria-label="Back to Home">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <!-- GitHub Corner -->
+    <a href="https://github.com/kyleighhill-wcsd/FTC_Robotics" class="github-corner" aria-label="View source on GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>FTC Programming Quick Reference Guide</h1>
+            <p>Essential Java programming reference for FIRST Tech Challenge robotics</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Program Structure Template</h2>
+                <div class="code-block">@TeleOp(name = "Your Program Name", group = "TeleOp")
+public class YourProgram extends OpMode {
+    // 1. Declare hardware
+    private DcMotor motor;
+    private Servo servo;
+    
+    @Override
+    public void init() {
+        // 2. Initialize hardware
+        motor = hardwareMap.get(DcMotor.class, "motor_name");
+        motor.setDirection(DcMotor.Direction.FORWARD);
+    }
+    
+    @Override
+    public void loop() {
+        // 3. Read input, calculate, control robot
+        double power = gamepad1.left_stick_y;
+        motor.setPower(power);
+    }
+}</div>
+            </div>
+
+            <div class="section">
+                <h2>Essential Hardware Types</h2>
+                <table>
+                    <tr>
+                        <th>Hardware</th>
+                        <th>Purpose</th>
+                        <th>Common Methods</th>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">DcMotor</span></td>
+                        <td>Wheels, arms, lifts</td>
+                        <td><span class="inline-code">.setPower(-1.0 to 1.0)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">Servo</span></td>
+                        <td>Claws, wrists</td>
+                        <td><span class="inline-code">.setPosition(0.0 to 1.0)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">CRServo</span></td>
+                        <td>Continuous rotation</td>
+                        <td><span class="inline-code">.setPower(-1.0 to 1.0)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">DistanceSensor</span></td>
+                        <td>Measure distance</td>
+                        <td><span class="inline-code">.getDistance(DistanceUnit.INCH)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">ColorSensor</span></td>
+                        <td>Detect colors</td>
+                        <td><span class="inline-code">.red()</span>, <span class="inline-code">.green()</span>, <span class="inline-code">.blue()</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">TouchSensor</span></td>
+                        <td>Detect contact</td>
+                        <td><span class="inline-code">.isPressed()</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>Gamepad Controls Reference</h2>
+                <h3>Sticks & Triggers</h3>
+                <div class="code-block">gamepad1.left_stick_x    // -1.0 to 1.0 (left/right)
+gamepad1.left_stick_y    // -1.0 to 1.0 (up/down, FLIPPED!)
+gamepad1.right_stick_x   // -1.0 to 1.0 (left/right)
+gamepad1.right_stick_y   // -1.0 to 1.0 (up/down, FLIPPED!)
+gamepad1.left_trigger    // 0.0 to 1.0
+gamepad1.right_trigger   // 0.0 to 1.0</div>
+
+                <h3>Buttons (return true/false)</h3>
+                <div class="code-block">gamepad1.a, gamepad1.b, gamepad1.x, gamepad1.y
+gamepad1.left_bumper, gamepad1.right_bumper
+gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right
+gamepad1.start, gamepad1.back, gamepad1.guide</div>
+            </div>
+
+            <div class="section">
+                <h2>Common Drive Systems</h2>
+                <h3>Tank Drive</h3>
+                <div class="code-block">double leftPower = -gamepad1.left_stick_y;
+double rightPower = -gamepad1.right_stick_y;
+leftMotor.setPower(leftPower);
+rightMotor.setPower(rightPower);</div>
+
+                <h3>Arcade Drive</h3>
+                <div class="code-block">double forward = -gamepad1.left_stick_y;
+double turn = gamepad1.right_stick_x;
+leftMotor.setPower(forward + turn);
+rightMotor.setPower(forward - turn);</div>
+
+                <h3>Mecanum Drive</h3>
+                <div class="code-block">double y = -gamepad1.left_stick_y;  // Forward/backward
+double x = gamepad1.left_stick_x;   // Strafe left/right
+double rx = gamepad1.right_stick_x; // Rotate
+
+double frontLeftPower = y + x + rx;
+double frontRightPower = y - x - rx;
+double backLeftPower = y - x + rx;
+double backRightPower = y + x - rx;
+
+// Normalize if any power > 1.0
+double max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
+max = Math.max(max, Math.abs(backLeftPower));
+max = Math.max(max, Math.abs(backRightPower));
+
+if (max > 1.0) {
+    frontLeftPower /= max;
+    frontRightPower /= max;
+    backLeftPower /= max;
+    backRightPower /= max;
+}</div>
+            </div>
+
+            <div class="section">
+                <h2>Control Patterns</h2>
+                <h3>Button Toggle</h3>
+                <div class="code-block">// In class: private boolean clawOpen = false;
+// In loop():
+if (gamepad1.a && !lastA) {  // Button just pressed
+    clawOpen = !clawOpen;
+    clawServo.setPosition(clawOpen ? 0.8 : 0.2);
+}
+lastA = gamepad1.a;</div>
+
+                <h3>Hold Button for Action</h3>
+                <div class="code-block">if (gamepad1.right_bumper) {
+    armMotor.setPower(0.8);    // Raise arm
+} else if (gamepad1.right_trigger > 0.1) {
+    armMotor.setPower(-0.8);   // Lower arm
+} else {
+    armMotor.setPower(0);      // Stop arm
+}</div>
+
+                <h3>Variable Speed Control</h3>
+                <div class="code-block">double speed = gamepad1.right_trigger * 0.8 + 0.2; // 20% to 100%
+motor.setPower(gamepad1.left_stick_y * speed);</div>
+            </div>
+
+            <div class="section">
+                <h2>Autonomous Basics</h2>
+                <h3>Linear OpMode Structure</h3>
+                <div class="code-block">@Autonomous(name = "Auto Program", group = "Auto")
+public class AutoProgram extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        // Initialize hardware
+        DcMotor motor = hardwareMap.get(DcMotor.class, "motor");
+        
+        waitForStart();  // Wait for start button
+        
+        // Autonomous actions
+        motor.setPower(0.5);
+        sleep(2000);         // Wait 2 seconds
+        motor.setPower(0);
+    }
+}</div>
+
+                <h3>Using Encoders</h3>
+                <div class="code-block">// Reset and set mode
+motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+// Move specific distance
+int targetTicks = 1000;  // Calculate based on wheel size
+motor.setTargetPosition(targetTicks);
+motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+motor.setPower(0.5);
+
+while (opModeIsActive() && motor.isBusy()) {
+    // Wait for movement to complete
+}
+motor.setPower(0);</div>
+            </div>
+
+            <div class="section">
+                <h2>Debugging Tools</h2>
+                <h3>Telemetry</h3>
+                <div class="code-block">telemetry.addData("Label", "Value: %.2f", variable);
+telemetry.addData("Status", "Running");
+telemetry.update();  // Don't forget this!</div>
+
+                <h3>Common Telemetry Info</h3>
+                <div class="code-block">telemetry.addData("Runtime", getRuntime());
+telemetry.addData("Motors", "left: %.2f, right: %.2f", leftPower, rightPower);
+telemetry.addData("Encoder", motor.getCurrentPosition());
+telemetry.addData("Sensor", "Distance: %.1f inches", 
+    distanceSensor.getDistance(DistanceUnit.INCH));</div>
+            </div>
+
+            <div class="section">
+                <h2>Quick Troubleshooting</h2>
+                <table>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Most Likely Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Robot doesn't move</td>
+                        <td>Hardware names don't match</td>
+                        <td>Check phone config vs code</td>
+                    </tr>
+                    <tr>
+                        <td>Robot moves backward</td>
+                        <td>Motor direction wrong</td>
+                        <td>Change <span class="inline-code">.setDirection()</span></td>
+                    </tr>
+                    <tr>
+                        <td>Jerky movement</td>
+                        <td>Power changes too quickly</td>
+                        <td>Add gradual acceleration</td>
+                    </tr>
+                    <tr>
+                        <td>Servo doesn't work</td>
+                        <td>Position out of range</td>
+                        <td>Use values 0.0 to 1.0 only</td>
+                    </tr>
+                    <tr>
+                        <td>Encoder reads 0</td>
+                        <td>Wrong run mode</td>
+                        <td>Use <span class="inline-code">RUN_USING_ENCODER</span></td>
+                    </tr>
+                    <tr>
+                        <td>Program won't start</td>
+                        <td>Compilation error</td>
+                        <td>Check for missing semicolons</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>Essential Calculations</h2>
+                <h3>Convert Inches to Encoder Ticks</h3>
+                <div class="code-block">double COUNTS_PER_MOTOR_REV = 1440;    // Example for REV Core Hex
+double DRIVE_GEAR_REDUCTION = 2.0;     // Gear ratio
+double WHEEL_DIAMETER_INCHES = 4.0;    // Measure your wheels
+double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / 
+                         (WHEEL_DIAMETER_INCHES * 3.1415);
+
+int targetTicks = (int)(inches * COUNTS_PER_INCH);</div>
+
+                <h3>Limit Values to Range</h3>
+                <div class="code-block">// Keep value between min and max
+value = Math.max(min, Math.min(max, value));
+
+// Example: keep motor power between -1 and 1
+motorPower = Math.max(-1.0, Math.min(1.0, motorPower));</div>
+            </div>
+
+            <div class="section">
+                <h2>OpMode Types</h2>
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <th>Use Case</th>
+                        <th>Key Features</th>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">OpMode</span></td>
+                        <td>TeleOp, complex auto</td>
+                        <td><span class="inline-code">init()</span> and <span class="inline-code">loop()</span> methods</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">LinearOpMode</span></td>
+                        <td>Simple autonomous</td>
+                        <td>Sequential code with <span class="inline-code">waitForStart()</span></td>
+                    </tr>
+                </table>
+
+                <h3>Annotations</h3>
+                <div class="code-block">@TeleOp(name = "Driver Control", group = "TeleOp")
+@Autonomous(name = "Auto Program", group = "Autonomous")  
+@Disabled  // Hides from phone menu</div>
+            </div>
+
+            <div class="section">
+                <h2>Best Practices</h2>
+                <div class="tip-box">
+                    <h3>Code Organization</h3>
+                    <ul>
+                        <li>Use meaningful variable names (<span class="inline-code">frontLeftMotor</span> not <span class="inline-code">m1</span>)</li>
+                        <li>Add comments explaining complex logic</li>
+                        <li>Group related code together</li>
+                        <li>Keep methods short and focused</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>Safety First</h3>
+                    <ul>
+                        <li>Always initialize hardware in <span class="inline-code">init()</span></li>
+                        <li>Set safe default positions for servos</li>
+                        <li>Add emergency stops (both bumpers = stop all)</li>
+                        <li>Test at low power first</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Performance Tips</h3>
+                    <ul>
+                        <li>Avoid <span class="inline-code">sleep()</span> in TeleOp loop methods</li>
+                        <li>Minimize telemetry output (impacts performance)</li>
+                        <li>Cache frequently used calculations</li>
+                        <li>Use appropriate data types (<span class="inline-code">int</span> vs <span class="inline-code">double</span>)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Getting Help</h2>
+                <h3>Error Messages</h3>
+                <ul>
+                    <li><strong>Syntax Error:</strong> Missing semicolon, bracket, or quote</li>
+                    <li><strong>NullPointerException:</strong> Hardware not initialized</li>
+                    <li><strong>IllegalArgumentException:</strong> Value out of range (servo position, etc.)</li>
+                </ul>
+
+                <h3>Resources</h3>
+                <ul>
+                    <li><strong>FTC Docs:</strong> ftc-docs.firstinspires.org</li>
+                    <li><strong>FTC Discord:</strong> discord.gg/first-programs</li>
+                    <li><strong>Example Code:</strong> github.com/FIRST-Tech-Challenge/FtcRobotController</li>
+                </ul>
+
+                <h3>Common File Locations</h3>
+                <ul>
+                    <li><strong>Your Code:</strong> <span class="inline-code">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/</span></li>
+                    <li><strong>Hardware Config:</strong> Saved on Robot Controller phone</li>
+                    <li><strong>Logs:</strong> Robot Controller → Settings → View Logs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This is for Career Tech High School FTC Robotics Program. Made by Miss Hill 2025</p>
+        </div>
+    </div>
+</body>
+</html>
